@@ -9,6 +9,12 @@ type EvTable = {
 
 const table = evData as EvTable;
 
+/** Normalize rank to table key: J/Q/K → '10' */
+function rankToTableKey(rank: string): string {
+  if (['J', 'Q', 'K'].includes(rank)) return '10';
+  return rank;
+}
+
 export function getEv(
   handType: HandType,
   handKey: string,
@@ -92,8 +98,8 @@ export function getOptimalAction(
   let handKey: string;
 
   if (hand.type === 'Pair') {
-    const rank0 = hand.cards[0].rank;
-    const rank1 = hand.cards[1].rank;
+    const rank0 = rankToTableKey(hand.cards[0].rank);
+    const rank1 = rankToTableKey(hand.cards[1].rank);
     if (rank0 === rank1) {
       handKey = `${rank0},${rank1}`;
     } else {
@@ -146,7 +152,7 @@ export function getAllEvsFlat(
   let handKey: string;
 
   if (hand.type === 'Pair') {
-    handKey = `${hand.cards[0].rank},${hand.cards[1].rank}`;
+    handKey = `${rankToTableKey(hand.cards[0].rank)},${rankToTableKey(hand.cards[1].rank)}`;
   } else {
     handKey = String(hand.total);
   }
