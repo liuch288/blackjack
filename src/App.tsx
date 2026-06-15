@@ -32,7 +32,7 @@ function App() {
       </main>
 
       <footer className="text-center py-6 text-white/20 text-xs">
-        Blackjack 基本策略练习工具 · 数据源自 Wizard of Odds · 仅供学习使用
+        Blackjack 基本策略练习工具 v1.0.0 · EV 数据由动态规划精确计算 · 仅供学习使用
       </footer>
     </div>
   );

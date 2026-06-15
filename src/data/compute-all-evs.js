@@ -1,8 +1,11 @@
 /**
- * Blackjack EV 多规则计算器
+ * Blackjack EV 多规则计算器 — 动态规划精确计算
  * 一次性生成所有 6 套预设的 EV 数据
  *
- * 用法: node src/data/compute-all-evs.js
+ * 用法: node src/data/compute-all-evs.cjs
+ *
+ * 算法: 无限牌靴模型下，对庄家分布、玩家 Hit/Stand/Double/Split 做递归 DP
+ *       （记忆化搜索），无随机抽样，结果为该模型的精确期望值。
  *
  * 所有预设均为 S17 → 庄家分布相同，Hit/Stand 基础 EV 相同
  * 差异在于：投降/DAS/加倍限制/再分牌
@@ -240,7 +243,7 @@ for (const [key, rules] of Object.entries(PRESETS)) {
   const outPath = path.join(dataDir, `ev-${key}.json`);
   const metadata = {
     _meta: {
-      source: '自算 — infinite deck Monte Carlo DP',
+      source: '自算 — 无限牌靴模型动态规划精确计算',
       model: '无限牌靴, S17, Peek无BJ',
       rules: rules,
       computed: new Date().toISOString(),

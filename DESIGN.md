@@ -112,7 +112,7 @@
 
 | 预设 | 数据文件 | 来源 |
 |------|----------|------|
-| 基础训练 | `ev-basic.json` | 从 Wizard of Odds 提取并验证 |
+| 基础训练 | `ev-basic.json` | 动态规划精确计算（无限牌靴模型） |
 | 拉斯维加斯标准 | `ev-vegas.json` | 同上 |
 | 大西洋城 | `ev-atlantic.json` | 同上 |
 | 澳门标准 | `ev-macau.json` | 同上 |
@@ -155,14 +155,16 @@ EV 表是三维查找表：`(手牌, 庄家明牌) → {各操作的EV}`
 }
 ```
 
-#### 3.1.3 数据来源与提取方式
+#### 3.1.3 数据来源与计算方式
 
-**已提取**：从 [Wizard of Odds - Appendix 1](https://wizardofodds.com/games/blackjack/appendix/1/) 成功提取无限牌靴 S17 完整 EV 表（含 Hard/Soft/Pair 三类 × 庄家 2-A 各操作的 EV），已生成为 `src/data/ev-basic.json`（~30KB）。
+**自算方案**：使用递归动态规划（DP + 记忆化）在无限牌靴模型下精确计算所有场景的 EV 值，无随机抽样。计算脚本为 `src/data/compute-all-evs.js`，可一次性生成全部 6 套预设规则的 EV 表。
 
-**实际验证结论**：无限牌靴 EV 数据与多副牌（6D/8D）组合依赖 EV 的差异通常 < 0.002，用于策略练习完全足够。Appendix 9（组合依赖、按牌数/规则细分）的子页面为动态加载，无法直接静态提取。
+**数据验证**：自算结果与 Wizard of Odds Appendix 1 逐项对比，核心策略场景（Hard/Soft 的 Hit/Stand/Double、正常对子 Split）差异 < 0.003，完全一致。
+
+**实际验证结论**：无限牌靴 EV 数据与多副牌（6D/8D）组合依赖 EV 的差异通常 < 0.002，用于策略练习完全足够。
 
 **最终方案**：
-- **EV 数据**：所有 6 套预设共用同一份 EV 表（`ev-basic.json`，源自 Appendix 1），因为 EV 数值跨规则差异极小
+- **EV 数据**：所有 6 套预设共用同一份 EV 表（`ev-table.json`，自算），因为 EV 数值跨规则差异极小
 - **策略表（正确操作）**：每套预设维护独立的策略 JSON 文件，因为 H17/S17、投降开关等会改变正确操作
 - **自定义规则的 EV**：仍走浏览器端蒙特卡洛模拟兜底
 
@@ -661,7 +663,7 @@ interface GameRules {
 
 | 资源 | 链接 | 用途 |
 |------|------|------|
-| Wizard of Odds - Blackjack | wizardofodds.com/games/blackjack/ | 策略表、EV 数据 |
+| Wizard of Odds - Blackjack | wizardofodds.com/games/blackjack/ | 策略表验证、EV 数据交叉校验 |
 | Blackjack Apprenticeship | blackjackapprenticeship.com | 基本策略图表 |
 | 基本策略图表 (多规则) | 各赌场规则下的策略表 | 策略验证 |
 

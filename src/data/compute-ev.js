@@ -1,9 +1,10 @@
 /**
- * Blackjack EV 计算器 — 无限牌靴（Infinite Deck）
+ * Blackjack EV 计算器 — 无限牌靴模型动态规划精确计算
  * 模型: 庄家已 Peek 无 BJ，S17
  * 与 Wizard of Odds Appendix 1 逐项对比
  *
- * 用法: node src/data/compute-ev.js
+ * 算法: 递归 DP + 记忆化，无随机抽样，结果为模型精确期望值
+ * 用法: node src/data/compute-ev.cjs
  */
 const fs = require('fs');
 const path = require('path');

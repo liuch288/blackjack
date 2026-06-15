@@ -1,6 +1,6 @@
 {
   "_meta": {
-    "source": "自算 — infinite deck Monte Carlo DP",
+    "source": "自算 — 无限牌靴模型动态规划精确计算",
     "model": "无限牌靴, S17, Peek无BJ",
     "rules": {
       "name": "基础训练",
@@ -10,7 +10,7 @@
       "doubleRule": "any",
       "resplits": 3
     },
-    "computed": "2026-06-15T03:06:34.762Z"
+    "computed": "2026-06-15T09:14:29.117Z"
   },
   "hard": {
     "4": {
