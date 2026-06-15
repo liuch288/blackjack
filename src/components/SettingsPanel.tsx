@@ -65,12 +65,15 @@ export function SettingsPanel() {
         </SettingsRow>
 
         {/* Surrender */}
-        <SettingsRow label="🏳 投降" hint="允许在首两张牌时放弃本局，只输一半">
-          <ToggleSwitch
-            enabled={rules.surrender}
-            onToggle={v => updateRules({ surrender: v })}
-            labelOn="允许"
-            labelOff="禁止"
+        <SettingsRow label="🏳 投降" hint="允许在首两张牌时放弃本局，只输一半。庄A不可投：庄家明牌为A时不允许投降">
+          <OptionGroup
+            options={[
+              { value: 'ls', label: '允许投降' },
+              { value: 'no-ace', label: '庄A不可投' },
+              { value: 'none', label: '禁止投降' },
+            ]}
+            selected={rules.surrender}
+            onSelect={v => updateRules({ surrender: v })}
           />
         </SettingsRow>
 

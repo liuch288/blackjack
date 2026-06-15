@@ -69,7 +69,7 @@ export interface PracticeRecord {
 export interface GameRules {
   deckCount: 1 | 2 | 4 | 6 | 8;
   dealerStandSoft17: boolean;
-  surrender: boolean;
+  surrender: 'none' | 'ls' | 'no-ace';
   doubleRule: 'any' | '9-11' | '10-11';
   doubleAfterSplit: boolean;
   resplit: boolean;
@@ -79,7 +79,7 @@ export interface GameRules {
 export const DEFAULT_RULES: GameRules = {
   deckCount: 6,
   dealerStandSoft17: true,
-  surrender: true,
+  surrender: 'ls',
   doubleRule: 'any',
   doubleAfterSplit: true,
   resplit: true,
@@ -116,7 +116,7 @@ export const PRESETS: PresetInfo[] = [
     id: 'macau',
     name: '澳门标准',
     desc: '6D, S17, DAS, 无投降',
-    rules: { ...DEFAULT_RULES, surrender: false },
+    rules: { ...DEFAULT_RULES, surrender: 'none' },
   },
   {
     id: 'europe',
@@ -124,7 +124,7 @@ export const PRESETS: PresetInfo[] = [
     desc: '6D, S17, nDAS, 9-11加倍, 无投降',
     rules: {
       ...DEFAULT_RULES,
-      surrender: false,
+      surrender: 'none',
       doubleAfterSplit: false,
       doubleRule: '9-11',
       resplit: false,

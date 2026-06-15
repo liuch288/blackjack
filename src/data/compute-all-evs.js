@@ -162,12 +162,12 @@ for (let st = 13; st <= 20; st++) {
 
 // 预设定义
 const PRESETS = {
-  basic:     { name: '基础训练',       desc: '6D, S17, DAS, LS, 最多3次分牌',              surrender: true,  das: true,  doubleRule: 'any',  resplits: 3 },
-  vegas:     { name: '拉斯维加斯标准', desc: '6D, S17, DAS, LS, 最多3次分牌',              surrender: true,  das: true,  doubleRule: 'any',  resplits: 3 },
-  atlantic:  { name: '大西洋城',       desc: '8D, S17, DAS, LS, 最多3次分牌',              surrender: true,  das: true,  doubleRule: 'any',  resplits: 3 },
-  macau:     { name: '澳门标准',       desc: '6D, S17, DAS, 无投降, 最多3次分牌',          surrender: false, das: true,  doubleRule: 'any',  resplits: 3 },
-  europe:    { name: '欧洲规则',       desc: '6D, S17, nDAS, 9-11加倍, 无投降, 无再分牌',  surrender: false, das: false, doubleRule: '9-11', resplits: 0 },
-  doubledeck:{ name: '双副桌面',       desc: '2D, S17, DAS, LS, 最多3次分牌',              surrender: true,  das: true,  doubleRule: 'any',  resplits: 3 },
+  basic:     { name: '基础训练',       desc: '6D, S17, DAS, LS, 最多3次分牌',              surrender: 'ls',  das: true,  doubleRule: 'any',  resplits: 3 },
+  vegas:     { name: '拉斯维加斯标准', desc: '6D, S17, DAS, LS, 最多3次分牌',              surrender: 'ls',  das: true,  doubleRule: 'any',  resplits: 3 },
+  atlantic:  { name: '大西洋城',       desc: '8D, S17, DAS, LS, 最多3次分牌',              surrender: 'ls',  das: true,  doubleRule: 'any',  resplits: 3 },
+  macau:     { name: '澳门标准',       desc: '6D, S17, DAS, 无投降, 最多3次分牌',          surrender: 'none', das: true,  doubleRule: 'any',  resplits: 3 },
+  europe:    { name: '欧洲规则',       desc: '6D, S17, nDAS, 9-11加倍, 无投降, 无再分牌',  surrender: 'none', das: false, doubleRule: '9-11', resplits: 0 },
+  doubledeck:{ name: '双副桌面',       desc: '2D, S17, DAS, LS, 最多3次分牌',              surrender: 'ls',  das: true,  doubleRule: 'any',  resplits: 3 },
 };
 
 function canDouble(total, soft, rule) {
@@ -193,8 +193,8 @@ function generateTables(rules) {
     for (const d of UPCARDS) {
       const dl = lbl(d);
       const entry = { ...baseHard[h][dl] };
-      // 投降
-      if (rules.surrender && hi >= 15 && hi <= 17) entry.Surrender = -0.5;
+      // 投降（'ls' 或 'no-ace' 时在 EV 数据中保留投降，运行时再按规则过滤）
+      if ((rules.surrender === 'ls' || rules.surrender === 'no-ace') && hi >= 15 && hi <= 17) entry.Surrender = -0.5;
       // 加倍限制
       if (!canDouble(hi, false, rules.doubleRule) || hi >= 17) delete entry.Double;
       // 硬手可用的 Double 仅在首两张
@@ -213,7 +213,7 @@ function generateTables(rules) {
     for (const d of UPCARDS) {
       const dl = lbl(d);
       const entry = { ...baseSoft[s][dl] };
-      if (rules.surrender && si >= 15 && si <= 17) entry.Surrender = -0.5;
+      if ((rules.surrender === 'ls' || rules.surrender === 'no-ace') && si >= 15 && si <= 17) entry.Surrender = -0.5;
       if (!canDouble(si, true, rules.doubleRule)) delete entry.Double;
       soft[s][dl] = entry;
     }

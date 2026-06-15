@@ -82,8 +82,11 @@ function getAllPossibleActions(
 
   // Surrender: check rules
   const surrEv = data?.Surrender ?? hardData?.Surrender;
-  if (surrEv !== undefined && rules.surrender && hand.canSurrender) {
-    evs.Surrender = surrEv;
+  if (surrEv !== undefined && hand.canSurrender) {
+    const canSurrender =
+      rules.surrender === 'ls' ||
+      (rules.surrender === 'no-ace' && dealerUp !== 'A');
+    if (canSurrender) evs.Surrender = surrEv;
   }
 
   return evs;
@@ -175,7 +178,8 @@ export function rulesLabel(rules: GameRules): string {
   const parts: string[] = [];
   parts.push(`${rules.deckCount}D`);
   parts.push(rules.dealerStandSoft17 ? 'S17' : 'H17');
-  if (rules.surrender) parts.push('LS');
+  if (rules.surrender === 'ls') parts.push('LS');
+  else if (rules.surrender === 'no-ace') parts.push('LS(NoA)');
   if (rules.doubleAfterSplit) parts.push('DAS');
   else parts.push('nDAS');
   if (rules.doubleRule !== 'any') parts.push(`${rules.doubleRule}`);
