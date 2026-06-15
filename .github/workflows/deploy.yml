@@ -33,4 +33,5 @@ jobs:
           SOURCE: 'dist/'
           REMOTE_HOST: ${{ secrets.SSH_HOST }}
           REMOTE_USER: ${{ secrets.SSH_USER }}
+          REMOTE_PORT: ${{ secrets.SSH_PORT }}
           TARGET: '/var/www/blackjack'
