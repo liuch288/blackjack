@@ -48,7 +48,7 @@ const VARIANT_CONFIG: Record<Variant, {
     hoverScale: 1.0, spotlightAlpha: 0.1, hoverAlpha: 0.28,
   },
   frosted: {
-    bgAlpha: 0.35, bgColor: [10, 18, 14], borderAlpha: 0.28, blur: 44, saturate: 130, glow: 0.5,
+    bgAlpha: 0.45, bgColor: [10, 18, 14], borderAlpha: 0.3, blur: 24, saturate: 130, glow: 0.5,
     shadow: '0 16px 48px rgba(0, 0, 0, 0.5), 0 2px 8px rgba(0, 0, 0, 0.3)',
     hoverScale: 1.0, spotlightAlpha: 0.03, hoverAlpha: 0.08,
   },
