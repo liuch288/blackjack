@@ -21,9 +21,11 @@ export function Header({ activeTab, onTabChange, mouseContainer }: Props) {
   return (
     <header className="sticky top-3 z-50 px-3 pt-3">
       <GlassPanel
-        variant="normal"
-        cornerRadius={20}
+        variant="frosted"
+        cornerRadius={24}
         mouseContainer={mouseContainer as RefObject<HTMLDivElement | null>}
+        className="glass-liquid"
+        enableSpotlight={false}
       >
         <div className="px-4 py-2.5">
           <div className="flex items-center justify-between flex-wrap gap-3">

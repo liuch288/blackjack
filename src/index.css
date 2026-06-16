@@ -88,9 +88,8 @@
   }
 
   .card-front {
-    @apply bg-white rounded-xl w-16 h-24 sm:w-20 sm:h-28 flex flex-col
-           items-center justify-center border border-white/20
-           transition-transform duration-200;
+    @apply bg-white rounded-xl border border-white/20
+           transition-transform duration-200 overflow-hidden relative;
     box-shadow:
       0 12px 36px rgba(0, 0, 0, 0.5),
       0 2px 6px rgba(0, 0, 0, 0.3),
@@ -108,6 +107,60 @@
       0 12px 36px rgba(0, 0, 0, 0.5),
       0 2px 6px rgba(0, 0, 0, 0.3),
       inset 0 1px 0 rgba(255, 255, 255, 0.18);
+  }
+}
+
+/* ===== 磨砂液态玻璃效果 ===== */
+.glass-liquid {
+  position: relative;
+}
+
+/* 液态渐变叠加层：彩虹油膜般流动的色彩 */
+.glass-liquid::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(
+    135deg,
+    rgba(180, 210, 255, 0.1) 0%,
+    rgba(200, 180, 255, 0.04) 20%,
+    rgba(180, 220, 240, 0.08) 40%,
+    rgba(220, 200, 255, 0.06) 60%,
+    rgba(180, 210, 240, 0.04) 80%,
+    rgba(200, 220, 255, 0.1) 100%
+  );
+  background-size: 300% 300%;
+  animation: liquid-morph 10s ease-in-out infinite;
+  pointer-events: none;
+  z-index: 2;
+  mix-blend-mode: overlay;
+}
+
+/* 磨砂纹理层：模拟喷砂玻璃的细微噪点 */
+.glass-liquid::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.6;
+}
+
+@keyframes liquid-morph {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  25% {
+    background-position: 100% 0%;
+  }
+  50% {
+    background-position: 100% 100%;
+  }
+  75% {
+    background-position: 0% 100%;
   }
 }
 

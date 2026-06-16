@@ -1,6 +1,6 @@
 import { ReactNode, CSSProperties, RefObject, useEffect, useRef, MouseEventHandler } from 'react';
 
-type Variant = 'subtle' | 'normal' | 'strong' | 'extreme';
+type Variant = 'subtle' | 'normal' | 'strong' | 'extreme' | 'frosted';
 
 interface GlassPanelProps {
   children: ReactNode;
@@ -17,6 +17,7 @@ interface GlassPanelProps {
 
 const VARIANT_CONFIG: Record<Variant, {
   bgAlpha: number;
+  bgColor: [number, number, number];
   borderAlpha: number;
   blur: number;
   saturate: number;
@@ -27,24 +28,29 @@ const VARIANT_CONFIG: Record<Variant, {
   hoverAlpha: number;
 }> = {
   subtle: {
-    bgAlpha: 0.05, borderAlpha: 0.12, blur: 14, saturate: 180, glow: 0.4,
+    bgAlpha: 0.05, bgColor: [255, 255, 255], borderAlpha: 0.12, blur: 14, saturate: 180, glow: 0.4,
     shadow: '0 6px 24px rgba(0, 0, 0, 0.32), 0 1px 2px rgba(0, 0, 0, 0.2)',
     hoverScale: 1.0, spotlightAlpha: 0.07, hoverAlpha: 0.14,
   },
   normal: {
-    bgAlpha: 0.08, borderAlpha: 0.18, blur: 18, saturate: 200, glow: 0.6,
+    bgAlpha: 0.08, bgColor: [255, 255, 255], borderAlpha: 0.18, blur: 18, saturate: 200, glow: 0.6,
     shadow: '0 10px 40px rgba(0, 0, 0, 0.4), 0 2px 6px rgba(0, 0, 0, 0.25)',
     hoverScale: 1.025, spotlightAlpha: 0.08, hoverAlpha: 0.24,
   },
   strong: {
-    bgAlpha: 0.12, borderAlpha: 0.24, blur: 26, saturate: 220, glow: 0.8,
+    bgAlpha: 0.12, bgColor: [255, 255, 255], borderAlpha: 0.24, blur: 26, saturate: 220, glow: 0.8,
     shadow: '0 20px 60px rgba(0, 0, 0, 0.5), 0 4px 12px rgba(0, 0, 0, 0.32)',
     hoverScale: 1.0, spotlightAlpha: 0.06, hoverAlpha: 0.18,
   },
   extreme: {
-    bgAlpha: 0.16, borderAlpha: 0.3, blur: 32, saturate: 240, glow: 1.0,
+    bgAlpha: 0.16, bgColor: [255, 255, 255], borderAlpha: 0.3, blur: 32, saturate: 240, glow: 1.0,
     shadow: '0 28px 80px rgba(0, 0, 0, 0.6), 0 6px 20px rgba(0, 0, 0, 0.4)',
     hoverScale: 1.0, spotlightAlpha: 0.1, hoverAlpha: 0.28,
+  },
+  frosted: {
+    bgAlpha: 0.35, bgColor: [10, 18, 14], borderAlpha: 0.28, blur: 44, saturate: 130, glow: 0.5,
+    shadow: '0 16px 48px rgba(0, 0, 0, 0.5), 0 2px 8px rgba(0, 0, 0, 0.3)',
+    hoverScale: 1.0, spotlightAlpha: 0.03, hoverAlpha: 0.08,
   },
 };
 
@@ -122,7 +128,7 @@ export function GlassPanel({
         className="absolute inset-0"
         style={{
           borderRadius: cornerRadius,
-          background: `rgba(255, 255, 255, ${config.bgAlpha})`,
+          background: `rgba(${config.bgColor.join(', ')}, ${config.bgAlpha})`,
           backdropFilter: `blur(${config.blur}px) saturate(${config.saturate}%)`,
           WebkitBackdropFilter: `blur(${config.blur}px) saturate(${config.saturate}%)`,
           border: `1px solid rgba(255, 255, 255, ${config.borderAlpha})`,
