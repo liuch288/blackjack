@@ -1,10 +1,15 @@
+import { useEffect, RefObject } from 'react';
 import { useGameStore } from '@/store/gameStore';
 import { DealerArea } from './DealerArea';
 import { PlayerArea } from './PlayerArea';
 import { DecisionPanel } from './DecisionPanel';
 import { FeedbackPanel } from './FeedbackPanel';
 
-export function GameTable() {
+interface Props {
+  mouseContainer: RefObject<HTMLDivElement | null>;
+}
+
+export function GameTable({ mouseContainer }: Props) {
   const {
     scenario,
     answerRecord,
@@ -14,46 +19,70 @@ export function GameTable() {
     nextScenario,
   } = useGameStore();
 
-  // Generate first scenario on mount
   if (!scenario) {
     generateNewScenario();
   }
 
+  useEffect(() => {
+    if (showFeedback) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [showFeedback]);
+
   return (
-    <div className="flex flex-col items-center gap-8 py-8 px-4 max-w-3xl mx-auto">
+    <div className="flex flex-col items-center gap-8 py-8 px-4 max-w-3xl mx-auto relative">
       {!scenario ? (
-        <div className="text-white/50 text-lg">加载中...</div>
+        <div className="text-white/60 text-lg">加载中...</div>
       ) : (
         <>
-          {/* Dealer area */}
-          <DealerArea card={scenario.dealerUpCard} />
+          <DealerArea card={scenario.dealerUpCard} mouseContainer={mouseContainer} />
 
-          {/* Divider */}
-          <div className="w-32 h-px bg-white/10" />
+          <div className="w-32 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent" />
 
-          {/* Player area */}
-          <PlayerArea hand={scenario.playerHand} />
+          <PlayerArea hand={scenario.playerHand} mouseContainer={mouseContainer} />
 
-          {/* Decision buttons */}
           {!showFeedback && (
             <DecisionPanel
               availableActions={scenario.availableActions}
               disabled={showFeedback}
               onAction={submitAction}
+              mouseContainer={mouseContainer}
             />
           )}
 
-          {/* Feedback */}
           {showFeedback && answerRecord && (
-            <FeedbackPanel record={answerRecord} onNext={nextScenario} />
+            <>
+              {/* 移动端：居中浮层 */}
+              <div className="sm:hidden fixed inset-0 z-30 flex items-center justify-center p-4">
+                <div
+                  className="absolute inset-0 bg-black/50 backdrop-blur-md"
+                  style={{ animation: 'fadeIn 0.3s ease-out' }}
+                />
+                <div className="relative z-10 w-full max-w-lg">
+                  <FeedbackPanel
+                    record={answerRecord}
+                    onNext={nextScenario}
+                    mouseContainer={mouseContainer}
+                  />
+                </div>
+              </div>
+              {/* 桌面端：内联显示 */}
+              <div className="hidden sm:block w-full">
+                <FeedbackPanel
+                  record={answerRecord}
+                  onNext={nextScenario}
+                  mouseContainer={mouseContainer}
+                />
+              </div>
+            </>
           )}
 
-          {/* Hint for keyboard shortcuts */}
-          {!showFeedback && (
-            <div className="text-white/25 text-xs mt-2">
-              键盘快捷键：H 要牌 · S 停牌 · D 加倍 · P 分牌 · R 投降
-            </div>
-          )}
+          
         </>
       )}
     </div>

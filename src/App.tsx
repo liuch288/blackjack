@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Header } from './components/Header';
 import { GameTable } from './components/GameTable';
 import { HistoryPanel } from './components/HistoryPanel';
@@ -10,6 +10,7 @@ type Tab = 'practice' | 'history' | 'settings' | 'ev';
 
 function App() {
   const [activeTab, setActiveTab] = useState<Tab>('practice');
+  const containerRef = useRef<HTMLDivElement>(null);
 
   useKeyboard();
 
@@ -21,18 +22,19 @@ function App() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-table-green text-white">
-      <Header activeTab={activeTab} onTabChange={setActiveTab} />
+    <div ref={containerRef} className="min-h-screen bg-felt bg-aurora text-white relative">
+      {/* 玻璃面板的鼠标事件源（影响所有 LiquidGlass 的折射方向） */}
+      <Header activeTab={activeTab} onTabChange={setActiveTab} mouseContainer={containerRef} />
 
-      <main>
-        {activeTab === 'practice' && <GameTable />}
-        {activeTab === 'history' && <HistoryPanel />}
-        {activeTab === 'ev' && <EvViewer />}
-        {activeTab === 'settings' && <SettingsPanel />}
+      <main className="relative z-10">
+        {activeTab === 'practice' && <GameTable mouseContainer={containerRef} />}
+        {activeTab === 'history' && <HistoryPanel mouseContainer={containerRef} />}
+        {activeTab === 'ev' && <EvViewer mouseContainer={containerRef} />}
+        {activeTab === 'settings' && <SettingsPanel mouseContainer={containerRef} />}
       </main>
 
-      <footer className="text-center py-6 text-white/20 text-xs">
-        Blackjack 基本策略练习工具 v1.0.0 · EV 数据由动态规划精确计算 · 仅供学习使用
+      <footer className="text-center py-6 text-white/20 text-xs relative z-10">
+        v1.1.0
       </footer>
     </div>
   );
