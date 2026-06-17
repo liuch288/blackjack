@@ -16,12 +16,13 @@ const ACTION_CONFIG: Record<Action, {
   ring: string;
   tooltip: string;
   shortLabel: string;
+  textColor: string;
 }> = {
-  Hit:        { key: 'H', tint: 'from-blue-500/40 to-blue-600/30',   ring: 'ring-blue-400/40',   tooltip: '要牌（拿一张新牌）',         shortLabel: '要牌' },
-  Stand:      { key: 'S', tint: 'from-green-500/40 to-emerald-600/30', ring: 'ring-green-400/40',  tooltip: '停牌（保持当前手牌）',       shortLabel: '停牌' },
-  Double:     { key: 'D', tint: 'from-amber-500/40 to-orange-600/30', ring: 'ring-amber-400/40',  tooltip: '加倍（赌注翻倍，只拿一张牌）', shortLabel: '加倍' },
-  Split:      { key: 'P', tint: 'from-purple-500/40 to-fuchsia-600/30', ring: 'ring-purple-400/40', tooltip: '分牌（将一对牌分两手下注）', shortLabel: '分牌' },
-  Surrender:  { key: 'R', tint: 'from-slate-500/30 to-gray-600/20', ring: 'ring-slate-400/30',  tooltip: '投降（放弃本局，损失一半赌注）', shortLabel: '投降' },
+  Hit:        { key: 'H', tint: 'from-blue-500/40 to-blue-600/30',   ring: 'ring-blue-400/40',   tooltip: '要牌（拿一张新牌）',         shortLabel: '要牌', textColor: 'text-blue-200' },
+  Stand:      { key: 'S', tint: 'from-green-500/40 to-emerald-600/30', ring: 'ring-green-400/40',  tooltip: '停牌（保持当前手牌）',       shortLabel: '停牌', textColor: 'text-green-200' },
+  Double:     { key: 'D', tint: 'from-amber-500/40 to-orange-600/30', ring: 'ring-amber-400/40',  tooltip: '加倍（赌注翻倍，只拿一张牌）', shortLabel: '加倍', textColor: 'text-amber-200' },
+  Split:      { key: 'P', tint: 'from-purple-500/40 to-fuchsia-600/30', ring: 'ring-purple-400/40', tooltip: '分牌（将一对牌分两手下注）', shortLabel: '分牌', textColor: 'text-purple-200' },
+  Surrender:  { key: 'R', tint: 'from-slate-500/30 to-gray-600/20', ring: 'ring-slate-400/30',  tooltip: '投降（放弃本局，损失一半赌注）', shortLabel: '投降', textColor: 'text-slate-300' },
 };
 
 const ALL_ACTIONS: Action[] = ['Hit', 'Stand', 'Double', 'Split', 'Surrender'];
@@ -53,7 +54,7 @@ export function DecisionPanel({ availableActions, disabled, onAction, mouseConta
                 className={`btn-glass-action ${isDisabled ? 'btn-glass-disabled' : ''}
                   bg-gradient-to-br ${config.tint} rounded-[18px]`}
               >
-                <span className="text-base sm:text-lg font-bold">{config.shortLabel}</span>
+                <span className={`glass-text text-base sm:text-lg font-bold ${config.textColor}`}>{config.shortLabel}</span>
               </button>
             </GlassPanel>
 
