@@ -61,7 +61,7 @@ export function GameTable({ mouseContainer }: Props) {
               {/* 移动端：固定遮罩 + 可滚动答案浮层 */}
               <div className="sm:hidden fixed inset-0 z-30 overflow-y-auto overscroll-contain">
                 <div
-                  className="absolute inset-0 bg-black/50 backdrop-blur-md"
+                  className="absolute inset-0 bg-black/30 backdrop-blur-sm"
                   style={{ animation: 'fadeIn 0.3s ease-out' }}
                   onClick={() => nextScenario()}
                 />
