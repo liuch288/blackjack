@@ -44,14 +44,13 @@ export function CardView({ card, size = 'md', faceDown }: Props) {
 
   return (
     <div className={`card-front ${s.container} ${red ? 'card-red' : 'card-black'}`}>
-      {/* 数字：右上角，右对齐保证不同字符宽度下右缘统一 */}
+      {/* 数字：右上角，红色/黑色玻璃字效由父容器 card-red/card-black 级联 */}
       <span
         className={`absolute ${s.rank} font-black leading-none`}
         style={{
           fontFamily: "system-ui, -apple-system, 'Segoe UI', 'Helvetica Neue', sans-serif",
           fontWeight: 800,
           letterSpacing: '-0.04em',
-          textShadow: '0 2px 3px rgba(0,0,0,0.3), 0 -1px 0 rgba(255,255,255,0.2), 0 1px 0 rgba(0,0,0,0.15)',
           top: 2,
           right: 4,
           textAlign: 'right',
@@ -60,11 +59,10 @@ export function CardView({ card, size = 'md', faceDown }: Props) {
       >
         {card.rank}
       </span>
-      {/* 花色：左下角，左对齐 */}
+      {/* 花色：左下角，玻璃字效由父容器级联 */}
       <span
         className={`absolute ${s.suit} leading-none`}
         style={{
-          textShadow: '0 2px 3px rgba(0,0,0,0.3), 0 -1px 0 rgba(255,255,255,0.2), 0 1px 0 rgba(0,0,0,0.15)',
           bottom: 10,
           left: 2,
           textAlign: 'left',
