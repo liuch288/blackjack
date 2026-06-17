@@ -14,7 +14,7 @@ const sizeMap = {
     suit: 'text-4xl',
   },
   md: {
-    container: 'w-16 h-24 sm:w-20 sm:h-28',
+    container: 'w-[72px] h-[108px] sm:w-20 sm:h-28',
     rank: 'text-4xl sm:text-5xl',
     suit: 'text-5xl sm:text-6xl',
   },

@@ -36,7 +36,7 @@ export function GameTable({ mouseContainer }: Props) {
   }, []);
 
   return (
-    <div className="flex flex-col items-center gap-4 sm:gap-8 py-4 sm:py-8 px-4 max-w-3xl mx-auto relative">
+    <div className="flex flex-col items-center gap-6 sm:gap-8 py-6 sm:py-8 px-4 max-w-3xl mx-auto relative">
       {!scenario ? (
         <div className="text-white/60 text-lg">加载中...</div>
       ) : (

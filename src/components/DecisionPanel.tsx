@@ -38,14 +38,14 @@ export function DecisionPanel({ availableActions, disabled, onAction, mouseConta
           <div
             key={action}
             className="relative group"
-            style={{ width: 96, height: 56 }}
+            style={{ width: 96, height: 60 }}
             title={isAvailable ? `${config.tooltip} [${config.key}]` : '当前场景不可用'}
           >
             <GlassPanel
               variant={isAvailable ? 'normal' : 'subtle'}
               cornerRadius={18}
               mouseContainer={mouseContainer}
-              style={{ width: 96, height: 56 }}
+              style={{ width: 96, height: 60 }}
             >
               <button
                 disabled={isDisabled}
