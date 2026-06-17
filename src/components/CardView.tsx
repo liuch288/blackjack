@@ -51,6 +51,7 @@ export function CardView({ card, size = 'md', faceDown }: Props) {
           fontFamily: "system-ui, -apple-system, 'Segoe UI', 'Helvetica Neue', sans-serif",
           fontWeight: 800,
           letterSpacing: '-0.04em',
+          textShadow: '0 2px 3px rgba(0,0,0,0.3), 0 -1px 0 rgba(255,255,255,0.2), 0 1px 0 rgba(0,0,0,0.15)',
           top: 2,
           right: 4,
           textAlign: 'right',
