@@ -60,12 +60,13 @@ export function GameTable({ mouseContainer }: Props) {
             <>
               {/* 移动端：固定遮罩 + 可滚动答案浮层 */}
               <div className="sm:hidden fixed inset-0 z-30 overflow-y-auto overscroll-contain">
+                {/* 遮罩层覆盖所有下方内容 */}
                 <div
-                  className="absolute inset-0 bg-black/30 backdrop-blur-sm"
+                  className="fixed inset-0 bg-black/30 backdrop-blur-sm z-30"
                   style={{ animation: 'fadeIn 0.3s ease-out' }}
                   onClick={() => nextScenario()}
                 />
-                <div className="relative z-10 flex items-end justify-center min-h-full pt-20 px-4 pb-4">
+                <div className="relative z-40 flex items-end justify-center min-h-full pt-20 px-4 pb-4">
                   <div className="w-full max-w-lg">
                     <FeedbackPanel
                       record={answerRecord}
