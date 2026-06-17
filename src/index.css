@@ -3,6 +3,11 @@
 @tailwind utilities;
 
 @layer base {
+  html, body {
+    overscroll-behavior: none;
+    -webkit-overflow-scrolling: auto;
+  }
+
   body {
     @apply text-white antialiased;
     font-family: 'Noto Sans SC', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;

@@ -23,16 +23,17 @@ export function GameTable({ mouseContainer }: Props) {
     generateNewScenario();
   }
 
+  // 练习页全程锁定 body 滚动，禁止移动端上下拖动
   useEffect(() => {
-    if (showFeedback) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = '';
-    }
+    document.body.style.overflow = 'hidden';
+    document.body.style.position = 'fixed';
+    document.body.style.width = '100%';
     return () => {
       document.body.style.overflow = '';
+      document.body.style.position = '';
+      document.body.style.width = '';
     };
-  }, [showFeedback]);
+  }, []);
 
   return (
     <div className="flex flex-col items-center gap-8 py-8 px-4 max-w-3xl mx-auto relative">
@@ -57,18 +58,21 @@ export function GameTable({ mouseContainer }: Props) {
 
           {showFeedback && answerRecord && (
             <>
-              {/* 移动端：居中浮层 */}
-              <div className="sm:hidden fixed inset-0 z-30 flex items-center justify-center p-4">
+              {/* 移动端：固定遮罩 + 可滚动答案浮层 */}
+              <div className="sm:hidden fixed inset-0 z-30 overflow-y-auto overscroll-contain">
                 <div
                   className="absolute inset-0 bg-black/50 backdrop-blur-md"
                   style={{ animation: 'fadeIn 0.3s ease-out' }}
+                  onClick={() => nextScenario()}
                 />
-                <div className="relative z-10 w-full max-w-lg">
-                  <FeedbackPanel
-                    record={answerRecord}
-                    onNext={nextScenario}
-                    mouseContainer={mouseContainer}
-                  />
+                <div className="relative z-10 flex justify-center min-h-full p-4 pb-8">
+                  <div className="w-full max-w-lg">
+                    <FeedbackPanel
+                      record={answerRecord}
+                      onNext={nextScenario}
+                      mouseContainer={mouseContainer}
+                    />
+                  </div>
                 </div>
               </div>
               {/* 桌面端：内联显示 */}

@@ -150,8 +150,9 @@ export function FeedbackPanel({ record, onNext, mouseContainer }: Props) {
       content: (
         <div className="px-5 py-4">
           <button
-            onClick={(e) => { e.stopPropagation(); handleNext(); }}
-            className={`w-full py-3.5 rounded-xl font-bold text-white text-base
+            onClick={handleNext}
+            style={{ touchAction: 'manipulation' }}
+            className={`w-full py-4 rounded-xl font-bold text-white text-base
               transition-all duration-200 active:scale-95 hover:scale-[1.02]
               ${isCorrect
                 ? 'animate-glow-pulse bg-gradient-to-r from-green-500 to-emerald-500 shadow-lg shadow-green-500/30'
