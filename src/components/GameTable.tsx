@@ -65,7 +65,7 @@ export function GameTable({ mouseContainer }: Props) {
                   style={{ animation: 'fadeIn 0.3s ease-out' }}
                   onClick={() => nextScenario()}
                 />
-                <div className="relative z-10 flex justify-center min-h-full pt-20 px-4 pb-8">
+                <div className="relative z-10 flex items-end justify-center min-h-full pt-20 px-4 pb-4">
                   <div className="w-full max-w-lg">
                     <FeedbackPanel
                       record={answerRecord}
