@@ -38,14 +38,14 @@ export function DecisionPanel({ availableActions, disabled, onAction, mouseConta
           <div
             key={action}
             className="relative group"
-            style={{ width: 96, height: 84 }}
+            style={{ width: 96, height: 56 }}
             title={isAvailable ? `${config.tooltip} [${config.key}]` : '当前场景不可用'}
           >
             <GlassPanel
               variant={isAvailable ? 'normal' : 'subtle'}
               cornerRadius={18}
               mouseContainer={mouseContainer}
-              style={{ width: 96, height: 84 }}
+              style={{ width: 96, height: 56 }}
             >
               <button
                 disabled={isDisabled}
@@ -54,7 +54,6 @@ export function DecisionPanel({ availableActions, disabled, onAction, mouseConta
                   bg-gradient-to-br ${config.tint} rounded-[18px]`}
               >
                 <span className="text-base sm:text-lg font-bold">{config.shortLabel}</span>
-                <span className="text-xs opacity-80 mt-0.5 font-mono">({config.key})</span>
               </button>
             </GlassPanel>
 
