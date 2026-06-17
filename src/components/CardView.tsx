@@ -10,17 +10,17 @@ interface Props {
 const sizeMap = {
   sm: {
     container: 'w-12 h-[72px]',
-    rank: 'text-4xl',
+    rank: 'text-3xl',
     suit: 'text-4xl',
   },
   md: {
     container: 'w-16 h-24 sm:w-20 sm:h-28',
-    rank: 'text-5xl sm:text-6xl',
+    rank: 'text-4xl sm:text-5xl',
     suit: 'text-5xl sm:text-6xl',
   },
   lg: {
     container: 'w-24 h-36',
-    rank: 'text-7xl',
+    rank: 'text-6xl',
     suit: 'text-7xl',
   },
 };
@@ -51,7 +51,7 @@ export function CardView({ card, size = 'md', faceDown }: Props) {
           fontFamily: "system-ui, -apple-system, 'Segoe UI', 'Helvetica Neue', sans-serif",
           fontWeight: 800,
           letterSpacing: '-0.04em',
-          top: 2,
+          top: 5,
           right: 4,
           textAlign: 'right',
           lineHeight: 0.75,
